@@ -17,22 +17,26 @@
     </style>
   </head>
   <body>
-    <gmp-map-3d class = "map" center="40.66303,-73.97169" 
-        range = "10000" tilt="60" 
+    //google 3d map
+    <gmp-map-3d class = "map" center="40.726779,-73.99404,1" 
+        range = "100" tilt="60" 
         heading = "-150"
         default-labels-disabled>
-        
+
+        //trashcan model 40.726779193340064, -73.99404750380326
+        <gmp-model-3d class ="trashcan" position=" 40.726779,-73.99404,1" 
+        orientation="270,270,0"
+         altitude-mode="relative-to-ground"
+         scale="2" 
+         src="assets/trashcan1.glb"></gmp-model-3d>
+
         <gmp-polygon-3d altitude-mode="relative-to-ground" 
             fill-color="rgba(66, 255, 123, 0.5)"  
             stroke-color="rgba(255,255,255, 0.75)" 
             stroke-width="5" 
             extruded></gmp-polygon-3d>
 
-        <gmp-model-3d position="40.667,-73.971,1000" 
-           orientation="270,270,0"
-            altitude-mode="relative-to-ground"
-            scale="100" 
-            src="assets/trashcan1.glb"></gmp-model-3d>
+
     </gmp-map-3d>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxzQhmGUSCXcHy9S0SaQZR9eYtB2TZ4yU&v=alpha&libraries=maps3d"></script>
     <script type="text/javascript" src="main.js"></script>
