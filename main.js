@@ -1,18 +1,23 @@
 
-const trashcanElement = document.querySelector("gmp-model-3d.trashcan");
+const trashcan = document.querySelector("gmp-model-3d.trashcan");
 const map = document.querySelector("gmp-map-3d.map");
+const dirline = document.querySelector('gmp-polyline-3d');
 
-// Initial position and altitude of the trashcan 40.726530408888934, -73.99408386965425
-let trashcanLatitude = 40.72735799241893;
-let trashcanLongitude =   -73.99346551732907;
-let altitude = 15; 
+// Initial position 
+let trashcanLat = 40.72735799241893;
+let trashcanLng = -73.99346551732907;
+let trashcanAlt = 15; 
+
+//desitination 
+const coneyIslandLat = 40.5755;
+const coneyIslandLng = -73.9893;
 
 // Movement settings
-const acceleration = 0.0000001; 
-const maxSpeed = 0.0005;     
+const acceleration = 0.0000002; 
+const maxSpeed = 0.0008;     
 const verticalAcceleration = 0.05; 
 const maxVerticalSpeed = 0.08;      
-const maxAltitude = 200;              
+const maxAltitude = 150;              
 const friction = 0.98;              
 
 // Velocity for each direction
@@ -29,36 +34,45 @@ const keys = {
   space: false,
 };
 
-
+//polyline showing direction 
+customElements.whenDefined(dirline.localName).then(() => {
+  dirline.coordinates = [
+    {lat:  trashcanLat, lng:  trashcanLng, altitude:  maxAltitude-5},
+    {lat:  coneyIslandLat, lng: coneyIslandLng, altitude:  maxAltitude-5},
+        ];
+});
 
 //update the trashcan position
 function updateTrashcanPosition() {
-  trashcanLatitude += velocityLat;
-  trashcanLongitude += velocityLng;
-  altitude += velocityAlt;
+  trashcanLat += velocityLat;
+  trashcanLng += velocityLng;
+  trashcanAlt += velocityAlt;
 
   // Constrain altitude within maxAltitude to prevent flying too high
-  altitude = Math.min(Math.max(altitude, 1), maxAltitude);
+  trashcanAlt = Math.min(Math.max(trashcanAlt, 1), maxAltitude);
 
   // Update the element's position attribute
-  trashcanElement.setAttribute(
+  trashcan.setAttribute(
     "position",
-    `${trashcanLatitude},${trashcanLongitude},${altitude}`
+    `${trashcanLat},${trashcanLng},${trashcanAlt}`
   );
 
   // Update the map's center to follow the trashcan
-map.setAttribute("center", `${trashcanLatitude},${trashcanLongitude},${altitude}`);
+map.setAttribute("center", `${trashcanLat},${trashcanLng},${trashcanAlt}`);
 
-  //camera focus
-// map.flyCameraTo({
-//     endCamera: {
-//       center: { lat: trashcanLatitude, lng: trashcanLongitude },
-//       tilt: 67.5,
-//       range: 10
-//     },
-//     durationMillis: 50
-//   });
 }
+
+// function updateDirLine(){
+//   const coordinates = [
+//     { lat: trashcanLat, lng: trashcanLng,altitude: trashcanAlt},
+//     { lat: coneyIslandLat, lng: coneyIslandLng,altitude: trashcanAlt},
+//   ];
+
+//   // Ensure the custom element is defined before updating
+//   customElements.whenDefined(dirline.localName).then(() => {
+//     dirline.coordinates = coordinates;
+//   });
+// }
 
 // handle movement with acceleration
 function applyMovement() {
@@ -76,6 +90,7 @@ function applyMovement() {
 
   // Update position and request the next animation frame
   updateTrashcanPosition();
+  // updateDirLine();
   requestAnimationFrame(applyMovement);
 }
 

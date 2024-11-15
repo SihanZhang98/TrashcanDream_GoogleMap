@@ -11,7 +11,7 @@
       }
 
       gmp-map-3d {
-        height: 400px;
+        height: 100%;
       }
 
     </style>
@@ -30,7 +30,12 @@
          scale="2" 
          src="assets/trashcan2.glb"></gmp-model-3d>
 
-        <gmp-polygon-3d altitude-mode="relative-to-ground" 
+        <gmp-polyline-3d altitude-mode="absolute" 
+          stroke-color="rgba(250, 230, 117, 0.75)" 
+          stroke-width="100"></gmp-polyline-3d>
+
+        <gmp-polygon-3d class ="chinatown"
+            altitude-mode="relative-to-ground" 
             fill-color="rgba(66, 255, 123, 0.5)"  
             stroke-color="rgba(255,255,255, 0.75)" 
             stroke-width="5" 
@@ -40,5 +45,6 @@
     </gmp-map-3d>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxzQhmGUSCXcHy9S0SaQZR9eYtB2TZ4yU&v=alpha&libraries=maps3d"></script>
     <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="direction.js"></script>
   </body>
 </html>
