@@ -3,9 +3,9 @@ const trashcanElement = document.querySelector("gmp-model-3d.trashcan");
 const map = document.querySelector("gmp-map-3d.map");
 
 // Initial position and altitude of the trashcan 40.726530408888934, -73.99408386965425
-let trashcanLatitude = 40.726530408888934;
-let trashcanLongitude =  -73.99408386965425;
-let altitude = 1; 
+let trashcanLatitude = 40.72735799241893;
+let trashcanLongitude =   -73.99346551732907;
+let altitude = 15; 
 
 // Movement settings
 const acceleration = 0.0000001; 
@@ -15,7 +15,7 @@ const maxVerticalSpeed = 0.08;
 const maxAltitude = 200;              
 const friction = 0.98;              
 
-// Velocity variables for each direction
+// Velocity for each direction
 let velocityLat = 0;
 let velocityLng = 0;
 let velocityAlt = 0; 
@@ -47,7 +47,7 @@ function updateTrashcanPosition() {
   );
 
   // Update the map's center to follow the trashcan
-map.setAttribute("center", `${trashcanLatitude},${trashcanLongitude},${altitude+12}`);
+map.setAttribute("center", `${trashcanLatitude},${trashcanLongitude},${altitude}`);
 
   //camera focus
 // map.flyCameraTo({
