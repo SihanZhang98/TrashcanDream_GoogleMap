@@ -45,9 +45,18 @@
 
     </gmp-map-3d>
 
-    <div id="ui" style="display: none; position: fixed; bottom: 0; width: 100%; background: rgba(0, 0, 0, 0.8); color: white; text-align: center; padding: 20px;">
-      <p id="ui-text">Placeholder text</p>
-      <button id="next-button" style="padding: 10px 20px; font-size: 16px;">Next</button>
+    <div class="dialogue-container" >
+      <p class="dialogue-text">Placeholder text</p>
+      <button class="next-button" style="padding: 10px 20px; font-size: 16px;">Next</button>
+    </div>
+    
+    <div class="quiz-container">
+      <p class="quiz-question">Question text goes here</p>
+      <div class="quiz-options" >
+        <img class="option-1" src="" alt="Option 1" />
+        <img class="option-2" src="" alt="Option 2" />
+      </div>
+      <div class="feedback" class="feedback"></div>
     </div>
     
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxzQhmGUSCXcHy9S0SaQZR9eYtB2TZ4yU&v=alpha&libraries=maps3d"></script>

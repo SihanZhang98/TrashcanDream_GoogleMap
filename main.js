@@ -43,9 +43,14 @@ const keys = {
 };
 
 //ui
-const ui = document.getElementById("ui");
-const uiText = document.getElementById("ui-text");
-const nextButton = document.getElementById("next-button");
+const ui = document.querySelector(".dialogue-container");
+const uiText = document.querySelector(".dialogue-text");
+const nextButton = document.querySelector(".next-button");
+
+let currentLineIndex = 0;
+let currentQuizIndex = 0;
+let uiVisible = false;
+
 
 const textLines = [
   "Welcome to this location!",
@@ -54,8 +59,71 @@ const textLines = [
   "Enjoy your adventure!"
 ];
 
-let currentLineIndex = 0;
-let uiVisible = false;
+const quizzes = [
+  {
+    question: "Which one can be turned into compost?",
+    options: [
+      { image: "https://placehold.co/600x400", isCorrect: true },
+      { image: "https://placehold.co/600x400", isCorrect: false },
+    ],
+  },
+  {
+    question: "Which material is recyclable?",
+    options: [
+      { image: "https://placehold.co/600x400", isCorrect: true },
+      { image: "https://placehold.co/600x400", isCorrect: false },
+    ],
+  },
+  {
+    question: "Which item is biodegradable?",
+    options: [
+      { image: "https://placehold.co/600x400", isCorrect: true },
+      { image: "https://placehold.co/600x400", isCorrect: false },
+    ],
+  },
+];
+
+function loadQuiz(quizIndex) {
+  const quizContainer = document.querySelector(".quiz-container");
+  quizContainer.style.display = "block";
+
+  const quiz = quizzes[quizIndex];
+
+  // Update question text
+  document.querySelector(".quiz-question").textContent = quiz.question;
+
+  // Update options dynamically
+  const option1 = document.querySelector(".option-1");
+  const option2 = document.querySelector(".option-2");
+  
+  // Set image sources and event handlers
+  option1.src = quiz.options[0].image;
+  option1.onclick = () => checkAnswer(quiz.options[0].isCorrect);
+
+  option2.src = quiz.options[1].image;
+  option2.onclick = () => checkAnswer(quiz.options[1].isCorrect);
+}
+
+function checkAnswer(isCorrect) {
+  const feedback = document.querySelector(".feedback");
+  if (isCorrect) {
+    feedback.textContent = "Correct!";
+    feedback.style.color = "green";
+
+    // Load next quiz after a delay
+    setTimeout(() => {
+      currentQuizIndex++;
+      if (currentQuizIndex < quizzes.length) {
+        loadQuiz(currentQuizIndex);
+      } else {
+        feedback.textContent = "You've completed all the quizzes!";
+      }
+    }, 1000);
+  } else {
+    feedback.textContent = "Try again!";
+    feedback.style.color = "red";
+  }
+}
 
 function showNextLine() {
   console.log("Next button clicked");
@@ -63,12 +131,12 @@ function showNextLine() {
   if (currentLineIndex < textLines.length) {
     uiText.textContent = textLines[currentLineIndex];
   } else {
-    uiVisible = false; 
+
     ui.style.display = "none";
     currentLineIndex = 0; 
+    loadQuiz(currentQuizIndex);
   }
 }
-
 nextButton.addEventListener("click", showNextLine);
 
 
