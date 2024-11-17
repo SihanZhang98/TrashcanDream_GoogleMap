@@ -10,15 +10,37 @@ let trashcanLng = -73.99167008808041;
 let trashcanAlt = 18; 
 
 //locations 
+const stationLat =40.67176559632283;
+const  stationLng =-73.99715614721433;
 const parkLat =40.66138759157992;
 const parkLng = -73.96835675819345;
 const govIslandLat =40.687050510645996;
 const govIslandLng =-74.02040954812702;
 const coneyIslandLat = 40.57254213065525;
 const coneyIslandLng = -73.97870758505385;
-const stationLat =40.67176559632283;
-const  stationLng =-73.99715614721433;
+let currentLocationIndex =0;
 
+const locations =[
+  { id:"station" , lag: "40.67176559632283", lng:"-73.99715614721433"},
+  {id:"park", lag:"40.66138759157992", lng:"-73.96835675819345"}
+]
+
+const dialogues=[
+  ["Welcome to location1!",
+  "Here's some interesting information.",
+  "You can do amazing things here.",
+  "Enjoy your adventure!"],
+
+  ["Welcome to location2!",
+    "Here's some interesting information.",
+    "You can do amazing things here.",
+    "Enjoy your adventure!"],
+
+  ["Welcome to this location3!",
+      "Here's some interesting information.",
+      "You can do amazing things here.",
+      "Enjoy your adventure!"],
+]
 // Movement settings
 const acceleration = 0.0000002; 
 const maxSpeed = 0.0008;     
@@ -126,10 +148,13 @@ function checkAnswer(isCorrect) {
 }
 
 function showNextLine() {
+  //current location's dialogue
+  let dialogue=dialogues[currentLocationIndex];
+
   console.log("Next button clicked");
   currentLineIndex++;
-  if (currentLineIndex < textLines.length) {
-    uiText.textContent = textLines[currentLineIndex];
+  if (currentLineIndex < dialogue.length) {
+    uiText.textContent = dialogue[currentLineIndex];
   } else {
 
     ui.style.display = "none";
@@ -146,11 +171,8 @@ function updateTrashcanPosition() {
   trashcanLat += velocityLat;
   trashcanLng += velocityLng;
   trashcanAlt += velocityAlt;
-
-  // Constrain altitude within maxAltitude to prevent flying too high
   trashcanAlt = Math.min(Math.max(trashcanAlt, 1), maxAltitude);
 
-  // Update the element's position attribute
   trashcan.setAttribute(
     "position",
     `${trashcanLat},${trashcanLng},${trashcanAlt}`
@@ -162,22 +184,23 @@ function updateTrashcanPosition() {
 }
 
 // Calculate distance using simple approximation
-function isNearLocation(lat1, lng1, lat2, lng2, threshold) {
-  const latDiff = Math.abs(lat1 - lat2);
-  const lngDiff = Math.abs(lng1 - lng2);
-  return latDiff <= threshold && lngDiff <= threshold;
-}
+// function isNearLocation(lat1, lng1, lat2, lng2, threshold) {
+//   const latDiff = Math.abs(lat1 - lat2);
+//   const lngDiff = Math.abs(lng1 - lng2);
+//   return latDiff <= threshold && lngDiff <= threshold;
+// }
 
 // check proximity and show UI
-function checkDistanceAndShowUI() {
-
-  if (isNearLocation(trashcanLat, trashcanLng, stationLat, stationLng, distThreshold)) {
-    if (!uiVisible) {
+function checkDistanceAndShowUI(targetLat,targetLng) {
+  // let targetLat=lat;
+  // let targetLng=lng;
+  let latDiff = Math.abs(trashcanLat - targetLat);
+  let lngDiff = Math.abs(trashcanLng - targetLng);
+  if (latDiff <= distThreshold || lngDiff <= distThreshold) {
     uiVisible = true;
     ui.style.display = "block";
-    uiText.textContent = textLines[0];
+    uiText.textContent = dialogues[currentLocationIndex][0];
     currentLineIndex = 0;
-    }
   }
 }
 
@@ -220,11 +243,16 @@ function applyMovement() {
   velocityLat *= friction;
   velocityLng *= friction;
 
-  // Update position and request the next animation frame
+//update trashcan position
   updateTrashcanPosition();
-}
-  checkDistanceAndShowUI();
+
+  //check distance to target location
+  let targetLocation = locations[currentLocationIndex];
+  checkDistanceAndShowUI(targetLocation.lag,targetLocation.lng);
   requestAnimationFrame(applyMovement);
+}
+
+
 }
 
 // Start the animation loop

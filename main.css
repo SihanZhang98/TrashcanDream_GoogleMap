@@ -10,32 +10,59 @@ gmp-map-3d {
 }
 
 .dialogue-container {
-  display: none;
+  display: block;
   position: fixed;
-  bottom: 0; 
-  width: 100%; 
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
+  bottom: 10%; 
+ width: 100%; 
   text-align: center;
   padding: 20px;
   font-family: Arial, sans-serif;
-  border-top: 2px solid #fff;
-  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
   }
   
+  .dialogue-bg{
+    border: 2px solid #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display:block;
+    width:38%;
+  } 
+
+ .dialogue-text{
+  /* border: 2px solid #fff; */
+  position: absolute;
+  width :26%;
+  top: 10%;
+  left: 50%;
+  transform: translate(-33%, -40%);
+  font-size:1.5vw;
+}
+.continue{
+  /* border: 2px solid #fff;  */
+  position: absolute;
+  width :26%;
+  top: 110%;
+  left: 47%;
+  font-size:1.3vw;
+  color:rgb(237, 220, 189);
+
+}
   .next-button {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
+    width: 2.8%;
+    position: absolute;
+    top: 85%;
+    left: 65%;
+    padding:0;
+    margin:0;
+    font-size: 1.5vw;
     cursor: pointer;
-    margin-top: 10px;
-    padding: 10px 20px; 
-    font-size: 16px;
+    filter: drop-shadow(2px 2px rgb(90, 56, 2));
   }
-  
+
   .next-button:hover {
-    background-color: #0056b3;
+    -webkit-filter: brightness(1.15);   
+    filter: brightness(1.15);
   }
 
 .quiz-container {
