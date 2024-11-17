@@ -1,0 +1,18 @@
+#ui {
+    font-family: Arial, sans-serif;
+    border-top: 2px solid #fff;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  #next-button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  #next-button:hover {
+    background-color: #0056b3;
+  }
