@@ -1,20 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Photorealistic 3D Maps in Maps JavaScript Simple Map Demo</title>
-    <style>
-      html,
-      body {
-        height:100%;
-        margin: 0;
-        padding: 0;
-      }
-
-      gmp-map-3d {
-        height: 100%;
-      }
-
-    </style>
+    <title>Trashcan Dreams</title>
       <link rel="stylesheet" href="main.css">
   </head>
   <body>
@@ -36,18 +23,32 @@
           stroke-color="rgba(250, 230, 117, 0.75)" 
           stroke-width="100"></gmp-polyline-3d>
 
+        <gmp-marker-3d class ="transfer-station-marker"
+         altitude-mode="absolute"
+          position ="40.66911273621591, -73.99769240065109,42"
+          label="Hamilton Avenue Marine Transfer Station"
+          drawsWhenOccluded
+        ></gmp-marker-3d>
+
+        <gmp-polygon-3d class ="transfer-station"
+          altitude-mode="relative-to-ground" 
+          fill-color="rgba(66, 255, 123, 0.3)"  
+          stroke-color="rgba(255,255,255, 0)" 
+          stroke-width="5" 
+          extruded></gmp-polygon-3d>
+
         <gmp-polygon-3d class ="prospect-park"
             altitude-mode="relative-to-ground" 
-            fill-color="rgba(66, 255, 123, 0.5)"  
-            stroke-color="rgba(255,255,255, 0.75)" 
-            stroke-width="5" 
+            fill-color="rgba(66, 255, 123, 0.4)"  
+            stroke-color="rgba(255,255,255, 0.6)" 
+            stroke-width="3" 
             extruded></gmp-polygon-3d>
 
     </gmp-map-3d>
 
     <div class="dialogue-container" >
       <p class="dialogue-text">Placeholder text</p>
-      <button class="next-button" style="padding: 10px 20px; font-size: 16px;">Next</button>
+      <button class="next-button" >Next</button>
     </div>
     
     <div class="quiz-container">

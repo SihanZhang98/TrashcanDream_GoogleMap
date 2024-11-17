@@ -16,17 +16,17 @@ const govIslandLat =40.687050510645996;
 const govIslandLng =-74.02040954812702;
 const coneyIslandLat = 40.57254213065525;
 const coneyIslandLng = -73.97870758505385;
-const stationLat =40.66897088881014;
-const  stationLng =-73.99760244649919;
+const stationLat =40.67176559632283;
+const  stationLng =-73.99715614721433;
 
 // Movement settings
 const acceleration = 0.0000002; 
 const maxSpeed = 0.0008;     
-const verticalAcceleration = 0.05; 
-const maxVerticalSpeed = 0.08;      
+const verticalAcceleration = 0.09; 
+const maxVerticalSpeed = 0.12;      
 const maxAltitude = 150;              
 const friction = 0.98;  
-const distThreshold = 0.0005;            
+const distThreshold = 0.00008;            
 
 // Velocity for each direction
 let velocityLat = 0;
