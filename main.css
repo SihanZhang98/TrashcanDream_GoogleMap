@@ -3,6 +3,7 @@ body {
   height:100%;
   margin: 0;
   padding: 0;
+  overflow:hidden;
 }
 
 gmp-map-3d {
@@ -11,17 +12,16 @@ gmp-map-3d {
 
 .dialogue-container {
   display: block;
-  position: fixed;
-  bottom: 10%; 
- width: 100%; 
+  position: relative;
+  bottom: 15%; 
   text-align: center;
-  padding: 20px;
+  /* padding: 20px; */
   font-family: Arial, sans-serif;
   }
   
   .dialogue-bg{
     border: 2px solid #fff;
-    position: absolute;
+    position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -30,29 +30,32 @@ gmp-map-3d {
   } 
 
  .dialogue-text{
-  /* border: 2px solid #fff; */
+ border: 2px solid #fff;
   position: absolute;
-  width :26%;
-  top: 10%;
-  left: 50%;
-  transform: translate(-33%, -40%);
+  display: inline-block;
+  padding:0px;
+  top:-30%;
+  width :25%;
+  left: 41%;
+  /* transform: translate(-30%, -70%); */
   font-size:1.5vw;
 }
 .continue{
   /* border: 2px solid #fff;  */
   position: absolute;
   width :26%;
-  top: 110%;
-  left: 47%;
-  font-size:1.3vw;
-  color:rgb(237, 220, 189);
+  top:20%;
+  left: 46%;
+  font-size:1.2vw;
+  color:rgb(254, 245, 227);
 
 }
   .next-button {
-    width: 2.8%;
+    /* border: 2px solid #fff; */
+    width: 2%;
     position: absolute;
-    top: 85%;
-    left: 65%;
+    top:18%;
+    left: 64%;
     padding:0;
     margin:0;
     font-size: 1.5vw;
