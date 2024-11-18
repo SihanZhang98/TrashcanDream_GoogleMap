@@ -20,27 +20,6 @@ const coneyIslandLat = 40.57254213065525;
 const coneyIslandLng = -73.97870758505385;
 let currentLocationIndex =0;
 
-const locations =[
-  { id:"station" , lag: "40.67176559632283", lng:"-73.99715614721433"},
-  {id:"park", lag:"40.66138759157992", lng:"-73.96835675819345"}
-]
-
-const dialogues=[
-  ["Welcome to location1!",
-  "Here's some interesting information.",
-  "You can do amazing things here.",
-  "Enjoy your adventure!"],
-
-  ["Welcome to location2!",
-    "Here's some interesting information.",
-    "You can do amazing things here.",
-    "Enjoy your adventure!"],
-
-  ["Welcome to this location3!",
-      "Here's some interesting information.",
-      "You can do amazing things here.",
-      "Enjoy your adventure!"],
-]
 // Movement settings
 const acceleration = 0.0000002; 
 const maxSpeed = 0.0008;     
@@ -68,97 +47,168 @@ const keys = {
 const ui = document.querySelector(".dialogue-container");
 const uiText = document.querySelector(".dialogue-text");
 const nextButton = document.querySelector(".next-button");
+const continueText = document.querySelector(".continue");
+const quizContainer = document.querySelector(".quiz-container");
+const rightImg="assets/right.png";
+const wrongImg="assets/wrong.png";
 
 let currentLineIndex = 0;
 let currentQuizIndex = 0;
 let uiVisible = false;
 
 
-const textLines = [
-  "Welcome to this location!",
-  "Here's some interesting information.",
-  "You can do amazing things here.",
-  "Enjoy your adventure!"
-];
+const locations =[
+  { id:"station" , lag: "40.67176559632283", lng:"-73.99715614721433"},
+  {id:"park", lag:"40.66138759157992", lng:"-73.96835675819345"}
+]
+
+const dialogues=[
+  ["Ugh, what’s that smell？",
+  "Oh that's the Hamilton Avenue Marine Transfer Station!",
+  "Trash from all over Brooklyn is collected there before being sent to landfills.",
+  "There’s just so much trash piling up—the smell is unbearable!",
+  "If only people could reduce waste and recycle more, it wouldn’t be this bad…"],
+
+  ["Welcome to location2!",
+    "Here's some interesting information.",
+    "You can do amazing things here.",
+    "Enjoy your adventure!"],
+
+  ["Welcome to this location3!",
+      "Here's some interesting information.",
+      "You can do amazing things here.",
+      "Enjoy your adventure!"],
+]
 
 const quizzes = [
-  {
-    question: "Which one can be turned into compost?",
-    options: [
-      { image: "https://placehold.co/600x400", isCorrect: true },
-      { image: "https://placehold.co/600x400", isCorrect: false },
-    ],
-  },
-  {
-    question: "Which material is recyclable?",
-    options: [
-      { image: "https://placehold.co/600x400", isCorrect: true },
-      { image: "https://placehold.co/600x400", isCorrect: false },
-    ],
-  },
-  {
-    question: "Which item is biodegradable?",
-    options: [
-      { image: "https://placehold.co/600x400", isCorrect: true },
-      { image: "https://placehold.co/600x400", isCorrect: false },
-    ],
-  },
+  //location1 quizzes
+  [
+    {
+      question: "Do you know how much trash does the average New Yorker produce per day?",
+      options: [
+        { image: "assets/veggie.png", isCorrect: true },
+        { image: "assets/chicken-bone.png", isCorrect: false },
+      ],
+    },
+    {
+      question: "What percentage of New York's trash ends up in landfills?",
+      options: [
+        { image: "https://placehold.co/600x400", isCorrect: true },
+        { image: "https://placehold.co/600x400", isCorrect: false },
+      ],
+    },
+    {
+      question: "What is the main greenhouse gas produced by landfills?",
+      options: [
+        { image: "https://placehold.co/600x400", isCorrect: false },
+        { image: "https://placehold.co/600x400", isCorrect: true },
+      ],
+    },
+    {
+      question: "How can New Yorkers reduce the amount of trash they generate?",
+      options: [
+        { image: "https://placehold.co/600x400", isCorrect: false },
+        { image: "https://placehold.co/600x400", isCorrect: true },
+      ],
+    },
+  ],
+
+     //location2 quizzes
+  [
+    {
+      question: "Which one?",
+      options: [
+        { image: "assets/veggie", isCorrect: true },
+        { image: "assets/chicken-bone", isCorrect: false },
+      ],
+    },
+    {
+      question: "Which material ?",
+      options: [
+        { image: "https://placehold.co/600x400", isCorrect: true },
+        { image: "https://placehold.co/600x400", isCorrect: false },
+      ],
+    },
+    {
+      question: "Which item?",
+      options: [
+        { image: "https://placehold.co/600x400", isCorrect: false },
+        { image: "https://placehold.co/600x400", isCorrect: true },
+      ],
+    },
+  ],
+
+
 ];
 
 function loadQuiz(quizIndex) {
-  const quizContainer = document.querySelector(".quiz-container");
+
   quizContainer.style.display = "block";
 
-  const quiz = quizzes[quizIndex];
+  //get currrent quiz
+  let quiz = quizzes[currentLocationIndex][currentQuizIndex];
 
   // Update question text
-  document.querySelector(".quiz-question").textContent = quiz.question;
+  uiText.textContent = quiz.question;
 
-  // Update options dynamically
+  //uodate option images
   const option1 = document.querySelector(".option-1");
   const option2 = document.querySelector(".option-2");
   
-  // Set image sources and event handlers
   option1.src = quiz.options[0].image;
-  option1.onclick = () => checkAnswer(quiz.options[0].isCorrect);
+  option1.onclick = () => checkAnswer(0,quiz.options[0].isCorrect);
 
   option2.src = quiz.options[1].image;
-  option2.onclick = () => checkAnswer(quiz.options[1].isCorrect);
+  option2.onclick = () => checkAnswer(1, quiz.options[1].isCorrect);
 }
 
-function checkAnswer(isCorrect) {
-  const feedback = document.querySelector(".feedback");
+function checkAnswer(selectedOption, isCorrect) {
+  const answer1 = document.querySelector(".answer-1");
+  const answer2 = document.querySelector(".answer-2");
   if (isCorrect) {
-    feedback.textContent = "Correct!";
-    feedback.style.color = "green";
+    console.log('correct');
+    if(selectedOption==0){
+      answer1.src= rightImg;
+      answer1.style.visibility = "visible";
+    }else{
+      answer2.src= rightImg;
+      answer2.style.visibility = "visible";
+    }}else{
+      console.log('incorrect');
+      if(selectedOption==0){
+        answer1.src= wrongImg;
+        answer1.style.visibility = "visible";
+    }else{
+      answer2.src= wrongImg;
+      answer2.style.visibility = "visible";
+    }}
 
     // Load next quiz after a delay
     setTimeout(() => {
       currentQuizIndex++;
-      if (currentQuizIndex < quizzes.length) {
+      answer1.style.visibility="hidden";
+      answer2.style.visibility="hidden";
+      if (currentQuizIndex < quizzes[currentLocationIndex].length) {
         loadQuiz(currentQuizIndex);
       } else {
-        feedback.textContent = "You've completed all the quizzes!";
+        quizContainer.style.display = "none";
+        uiText.textContent ="Let's keep moving to the next location!"
       }
-    }, 1000);
-  } else {
-    feedback.textContent = "Try again!";
-    feedback.style.color = "red";
-  }
+    }, 500);
+
 }
 
 function showNextLine() {
   //current location's dialogue
   let dialogue=dialogues[currentLocationIndex];
 
-  console.log("Next button clicked");
   currentLineIndex++;
   if (currentLineIndex < dialogue.length) {
     uiText.textContent = dialogue[currentLineIndex];
   } else {
-
-    ui.style.display = "none";
     currentLineIndex = 0; 
+    continueText.style.visibility="hidden";
+    nextButton.style.visibility="hidden";
     loadQuiz(currentQuizIndex);
   }
 }
