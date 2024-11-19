@@ -1,7 +1,8 @@
 
 const trashcan = document.querySelector("gmp-model-3d.trashcan");
 const map = document.querySelector("gmp-map-3d.map");
-const dirline = document.querySelector('gmp-polyline-3d');
+const dirline = document.querySelector('.direction-line');
+
 
 
 // Initial position 40.68958157491507,-73.99165410966313
@@ -11,11 +12,9 @@ let trashcanAlt = 18;
 
 //locations 
 const stationLat =40.67176559632283;
-const  stationLng =-73.99715614721433;
-const parkLat =40.66138759157992;
-const parkLng = -73.96835675819345;
-const govIslandLat =40.687050510645996;
-const govIslandLng =-74.02040954812702;
+const stationLng =-73.99715614721433;
+const ratLat =40.64244484417126;
+const ratLng = -73.99462613238627;
 const coneyIslandLat = 40.57254213065525;
 const coneyIslandLng = -73.97870758505385;
 let currentLocationIndex =0;
@@ -27,7 +26,7 @@ const verticalAcceleration = 0.09;
 const maxVerticalSpeed = 0.12;      
 const maxAltitude = 150;              
 const friction = 0.98;  
-const distThreshold = 0.00008;            
+const distThreshold = 0.00005;            
 
 // Velocity for each direction
 let velocityLat = 0;
@@ -57,10 +56,11 @@ let currentQuizIndex = 0;
 let uiVisible = false;
 
 
-const locations =[
-  { id:"station" , lag: "40.67176559632283", lng:"-73.99715614721433"},
-  {id:"park", lag:"40.66138759157992", lng:"-73.96835675819345"}
+const locations =[//40.64244816956603, -73.99461955863221
+  { id:"station" , lat: 40.67176559632283, lng:-73.99715614721433},
+  {id:"park", lat:40.64244816956603, lng:-73.99461955863221}
 ]
+
 
 const dialogues=[
   ["Ugh, what’s that smell？",
@@ -191,8 +191,18 @@ function checkAnswer(selectedOption, isCorrect) {
       if (currentQuizIndex < quizzes[currentLocationIndex].length) {
         loadQuiz(currentQuizIndex);
       } else {
+        currentLocationIndex++;
+        //hide ui
         quizContainer.style.display = "none";
         uiText.textContent ="Let's keep moving to the next location!"
+        ui.style.display = "none";
+        uiVisible =false; 
+
+        dirline.coordinates = [
+          {lat:  trashcanLat, lng:  trashcanLng, altitude:  maxAltitude-5},
+          {lat:  locations[currentLocationIndex].lat, lng:locations[currentLocationIndex].lng, altitude:  maxAltitude-5},
+              ];
+
       }
     }, 500);
 
@@ -233,20 +243,18 @@ function updateTrashcanPosition() {
 
 }
 
-// Calculate distance using simple approximation
-// function isNearLocation(lat1, lng1, lat2, lng2, threshold) {
-//   const latDiff = Math.abs(lat1 - lat2);
-//   const lngDiff = Math.abs(lng1 - lng2);
-//   return latDiff <= threshold && lngDiff <= threshold;
-// }
 
 // check proximity and show UI
 function checkDistanceAndShowUI(targetLat,targetLng) {
-  // let targetLat=lat;
-  // let targetLng=lng;
+
   let latDiff = Math.abs(trashcanLat - targetLat);
   let lngDiff = Math.abs(trashcanLng - targetLng);
   if (latDiff <= distThreshold || lngDiff <= distThreshold) {
+    //stop trashcan
+    velocityLat = 0;
+    velocityLng = 0;
+    velocityAlt = 0;
+    //display ui
     uiVisible = true;
     ui.style.display = "block";
     uiText.textContent = dialogues[currentLocationIndex][0];
@@ -298,10 +306,10 @@ function applyMovement() {
 
   //check distance to target location
   let targetLocation = locations[currentLocationIndex];
-  checkDistanceAndShowUI(targetLocation.lag,targetLocation.lng);
-  requestAnimationFrame(applyMovement);
-}
+  checkDistanceAndShowUI(targetLocation.lat,targetLocation.lng);
 
+}
+requestAnimationFrame(applyMovement);
 
 }
 
@@ -310,20 +318,17 @@ applyMovement();
 
 // Listen for keydown and keyup events to track which keys are pressed
 document.addEventListener("keydown", (event) => {
-  if (!uiVisible) { // Ignore key events when UI is visible
     if (event.key === " ") {
       event.preventDefault(); // Prevent page scrolling with spacebar
       keys.space = true;
     }
     if (event.key in keys) keys[event.key] = true;
   }
-});
+);
 
 document.addEventListener("keyup", (event) => {
-  if (!uiVisible) { // Ignore key events when UI is visible
     if (event.key === " ") keys.space = false;
     if (event.key in keys) keys[event.key] = false;
-  }
 });
 
 

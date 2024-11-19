@@ -1,4 +1,4 @@
-const park =  document.querySelector('gmp-polygon-3d.prospect-park');
+const garden =  document.querySelector('gmp-polygon-3d.q-garden');
 const station =  document.querySelector('gmp-polygon-3d.transfer-station');
 const stationMarker=document.querySelector('gmp-marker-3d.transfer-station-marker');
 const height = 40;
@@ -7,7 +7,7 @@ const height = 40;
 customElements.whenDefined(dirline.localName).then(() => {
   dirline.coordinates = [
     {lat:  trashcanLat, lng:  trashcanLng, altitude:  maxAltitude-5},
-    {lat:  stationLat, lng: stationLng, altitude:  maxAltitude-5},
+    {lat:  stationLat, lng:stationLng, altitude:  maxAltitude-5},
         ];
 });
 
@@ -22,16 +22,11 @@ customElements.whenDefined(station.localName).then(() => {
 });
 
 //park polygon
-customElements.whenDefined(park.localName).then(() => {
-  park.outerCoordinates = [
-    {lat: 40.672, lng: -73.971,altitude: height},
-    {lat: 40.661, lng: -73.980,altitude: height},
-    {lat: 40.658, lng: -73.974,altitude: height},
-    {lat: 40.651, lng: -73.971,altitude: height},
-    {lat: 40.654, lng: -73.961,altitude: height},
-    {lat: 40.662, lng: -73.963,altitude: height},
-    {lat: 40.665, lng: -73.961,altitude: height},
-    {lat: 40.671, lng: -73.961,altitude: height}
+customElements.whenDefined(garden.localName).then(() => {
+  garden.outerCoordinates = [
+    {lat: 40.649678604978405, lng: -73.96337377353251,altitude: height},
+    {lat: 40.649942134291585, lng: -73.96328468286639,altitude: height},
+    {lat: 40.64965208086651, lng: -73.96323393501861,altitude: height},
   ];
 });
 
