@@ -58,7 +58,8 @@ let uiVisible = false;
 
 const locations =[//40.64244816956603, -73.99461955863221
   { id:"station" , lat: 40.67176559632283, lng:-73.99715614721433},
-  {id:"park", lat:40.64244816956603, lng:-73.99461955863221}
+  {id:"park", lat:40.64244816956603, lng:-73.99461955863221},
+  {id:"coneyisland",lat:40.57475983566617, lng:-73.98593802882345}
 ]
 
 
@@ -69,15 +70,18 @@ const dialogues=[
   "There’s just so much trash piling up—the smell is unbearable!",
   "If only people could reduce waste and recycle more, it wouldn’t be this bad…"],
 
-  ["Welcome to location2!",
-    "Here's some interesting information.",
-    "You can do amazing things here.",
-    "Enjoy your adventure!"],
+  ["Ah what a disaster! ",
+    "The rat is messing with the compost bin！",
+    "I can't just pass by and let this happen.",
+    "Composting reduces waste, improves the soil, and helps the environment",
+    "I need to fix this mess."],
 
-  ["Welcome to this location3!",
-      "Here's some interesting information.",
-      "You can do amazing things here.",
-      "Enjoy your adventure!"],
+  ["It's Coney Island! I made it!",
+    "Wait...this is the beach I’ve been dreaming of?",
+    "Why is it covered in so much trash?",
+    "I've came a long way, trying to find a trash-free place..",
+    "but this is the reality..."
+  ],
 ]
 
 const quizzes = [
@@ -86,29 +90,29 @@ const quizzes = [
     {
       question: "Do you know how much trash does the average New Yorker produce per day?",
       options: [
-        { image: "assets/veggie.png", isCorrect: true },
-        { image: "assets/chicken-bone.png", isCorrect: false },
+        { image: "assets/5pound.png", isCorrect: true },
+        { image: "assets/3pound.png", isCorrect: false },
       ],
     },
     {
       question: "What percentage of New York's trash ends up in landfills?",
       options: [
-        { image: "https://placehold.co/600x400", isCorrect: true },
-        { image: "https://placehold.co/600x400", isCorrect: false },
+        { image: "assets/80.png", isCorrect: true },
+        { image: "assets/60.png", isCorrect: false },
       ],
     },
     {
-      question: "What is the main greenhouse gas produced by landfills?",
+      question: "What is the primary greenhouse gas produced by landfills?",
       options: [
-        { image: "https://placehold.co/600x400", isCorrect: false },
-        { image: "https://placehold.co/600x400", isCorrect: true },
+        { image: "assets/CO2.png", isCorrect: false },
+        { image: "assets/Methane.png", isCorrect: true },
       ],
     },
     {
       question: "How can New Yorkers reduce the amount of trash they generate?",
       options: [
-        { image: "https://placehold.co/600x400", isCorrect: false },
-        { image: "https://placehold.co/600x400", isCorrect: true },
+        { image: "assets/mix.png", isCorrect: false },
+        { image: "assets/compost.png", isCorrect: true },
       ],
     },
   ],
@@ -138,6 +142,16 @@ const quizzes = [
     },
   ],
 
+  [
+    {
+      question: "Should I stay here or go back?",
+      options: [
+        { image: "https://placehold.co/600x400", isCorrect: true },
+        { image: "https://placehold.co/600x400", isCorrect: false },
+      ],
+    }
+  ],
+
 
 ];
 
@@ -147,6 +161,9 @@ function loadQuiz(quizIndex) {
 
   //get currrent quiz
   let quiz = quizzes[currentLocationIndex][currentQuizIndex];
+  console.log(currentLocationIndex);
+  console.log(currentQuizIndex);
+  console.log(quiz);
 
   // Update question text
   uiText.textContent = quiz.question;
@@ -192,6 +209,7 @@ function checkAnswer(selectedOption, isCorrect) {
         loadQuiz(currentQuizIndex);
       } else {
         currentLocationIndex++;
+        currentQuizIndex=0;
         //hide ui
         quizContainer.style.display = "none";
         uiText.textContent ="Let's keep moving to the next location!"
@@ -257,6 +275,8 @@ function checkDistanceAndShowUI(targetLat,targetLng) {
     //display ui
     uiVisible = true;
     ui.style.display = "block";
+    nextButton.style.visibility="visible";
+    continueText.style.vibility="visible";
     uiText.textContent = dialogues[currentLocationIndex][0];
     currentLineIndex = 0;
   }
