@@ -6,81 +6,95 @@
   </head>
   <body>
 
-    <gmp-map-3d class = "map" center="40.69091634261124,-73.99167008808041,17.55755999513" 
-        range = "27.588548574326524"
-        tilt="56.899919726748436"
-        heading = "190.65219903935863"
-        default-labels-disabled
-        >
+    <!-- <div class="game-container"> -->
+      <gmp-map-3d class = "map" center="40.69091634261124,-73.99167008808041,17.55755999513" 
+      range = "27.588548574326524"
+      tilt="56.899919726748436"
+      heading = "190.65219903935863"
+      default-labels-disabled
+      >
 
-        <gmp-model-3d class ="trashcan" 
-        orientation="200,270,0"
+      <gmp-model-3d class ="trashcan" 
+      orientation="200,270,0"
+       altitude-mode="absolute"
+       scale="2" 
+       src="assets/trashcan2.glb"></gmp-model-3d>
+
+       <gmp-model-3d class ="rat" 
+       orientation="240,270,0"
+       position="40.62087898001096, -73.97717709268468,10"
+        altitude-mode="absolute"
+        scale="10" 
+        src="assets/rat.glb"></gmp-model-3d>
+
+        <gmp-model-3d class ="compost-bin" 
+        orientation="140,270,0"
+        position="40.62077190601765, -73.97689422849221,10"
          altitude-mode="absolute"
-         scale="2" 
-         src="assets/trashcan2.glb"></gmp-model-3d>
+         scale="0.3" 
+         src="assets/bin.glb"></gmp-model-3d>
 
-         <gmp-model-3d class ="rat" 
-         orientation="240,270,0"
-         position="40.62087898001096, -73.97717709268468,10"
-          altitude-mode="absolute"
-          scale="10" 
-          src="assets/rat.glb"></gmp-model-3d>
+      <gmp-polyline-3d class="direction-line" altitude-mode="absolute" 
+        stroke-color="rgba(250, 230, 117, 0.75)" 
+        stroke-width="100"></gmp-polyline-3d>
 
-          <gmp-model-3d class ="compost-bin" 
-          orientation="140,270,0"
-          position="40.62077190601765, -73.97689422849221,10"
-           altitude-mode="absolute"
-           scale="0.3" 
-           src="assets/bin.glb"></gmp-model-3d>
+      <gmp-marker-3d class ="transfer-station-marker"
+       altitude-mode="absolute"
+        position ="40.66911273621591, -73.99769240065109,42"
+        label="Hamilton Avenue Marine Transfer Station"
+        drawsWhenOccluded
+      ></gmp-marker-3d>
 
-        <gmp-polyline-3d class="direction-line" altitude-mode="absolute" 
-          stroke-color="rgba(250, 230, 117, 0.75)" 
-          stroke-width="100"></gmp-polyline-3d>
+      <gmp-polygon-3d class ="transfer-station"
+        altitude-mode="relative-to-ground" 
+        fill-color="rgba(66, 255, 123, 0.4)"  
+        stroke-color="rgba(255,255,255,  0.6)" 
+        stroke-width="5" 
+        extruded></gmp-polygon-3d>
 
-        <gmp-marker-3d class ="transfer-station-marker"
-         altitude-mode="absolute"
-          position ="40.66911273621591, -73.99769240065109,42"
-          label="Hamilton Avenue Marine Transfer Station"
-          drawsWhenOccluded
-        ></gmp-marker-3d>
-
-        <gmp-polygon-3d class ="transfer-station"
+      <gmp-polygon-3d class ="q-garden"
           altitude-mode="relative-to-ground" 
           fill-color="rgba(66, 255, 123, 0.4)"  
-          stroke-color="rgba(255,255,255,  0.6)" 
-          stroke-width="5" 
+          stroke-color="rgba(255,255,255, 0.6)" 
+          stroke-width="3" 
           extruded></gmp-polygon-3d>
 
-        <gmp-polygon-3d class ="q-garden"
-            altitude-mode="relative-to-ground" 
-            fill-color="rgba(66, 255, 123, 0.4)"  
-            stroke-color="rgba(255,255,255, 0.6)" 
-            stroke-width="3" 
-            extruded></gmp-polygon-3d>
+  </gmp-map-3d>
 
-    </gmp-map-3d>
-
-    <div class="dialogue-container" >
-      <img class="dialogue-bg" src="assets/dialogueBG2.png">
-      <div class="dialogue-text">
-        I'm a trashcan hahahah this is my life and i like it</div>
-      <div class="continue">Click to continue</div>
-      <img class ="next-button" src="assets/next1.png">
+  <div class="dialogue-container" >
+    <img class="dialogue-bg" src="assets/dialogueBG2.png">
+    <div class="dialogue-text">
+      I'm a trashcan hahahah this is my life and i like it</div>
+    <div class="continue">Click to continue</div>
+    <img class ="next-button" src="assets/next1.png">
+  </div>
+  
+  <div class="quiz-container">
+    <div class="answer-container">
+      <img class="answer-1" src="assets/wrong.png"  />
+      <img class="answer-2" src="assets/right.png"  />
     </div>
-    
-    <div class="quiz-container">
-      <div class="answer-container">
-        <img class="answer-1" src="assets/wrong.png"  />
-        <img class="answer-2" src="assets/right.png"  />
-      </div>
 
-      <div class="quiz-options" >
-        <img class="option-1" src="assets/chicken-bone.png" />
-        <img class="option-2" src="assets/veggie.png"/>
-      </div>
-
+    <div class="quiz-options" >
+      <img class="option-1" src="assets/chicken-bone.png" />
+      <img class="option-2" src="assets/veggie.png"/>
     </div>
-    
+
+  </div>
+
+<!-- 
+    </div> -->
+   
+
+    <div class="intro-container">
+      <video class="intro-video" autoplay muted>
+        <source src="assets/google_intro.mp4" type="video/mp4">
+      </video>
+      <button class="unmute-button">Unmute</button>
+      <button class="skip-button">Skip</button>
+    </div>
+
+
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxzQhmGUSCXcHy9S0SaQZR9eYtB2TZ4yU&v=alpha&libraries=maps3d"></script>
     <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript" src="location.js"></script>

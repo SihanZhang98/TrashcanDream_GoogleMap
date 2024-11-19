@@ -51,6 +51,13 @@ const quizContainer = document.querySelector(".quiz-container");
 const rightImg="assets/right.png";
 const wrongImg="assets/wrong.png";
 
+//intro video UI
+const introContainer=document.querySelector(".intro-container");
+const introVideo=document.querySelector(".intro-video");
+const unmuteButton=document.querySelector(".unmute-button");
+const skipButton=document.querySelector(".skip-button");
+let gamePlaying =false;
+
 let currentLineIndex = 0;
 let currentQuizIndex = 0;
 let uiVisible = false;
@@ -163,6 +170,26 @@ const quizzes = [
 
 
 ];
+
+//intro video
+unmuteButton.addEventListener('click', () => {
+  introVideo.muted = false;
+  unmuteButton.style.display = 'none';
+});
+
+skipButton.addEventListener('click', () => {
+  introContainer.style.display = 'none';
+  //gameContainer.style.display = 'block';
+  introVideo.pause();
+  gamePlaying=true;
+});
+
+introVideo.addEventListener('ended', () => {
+  introContainer.style.display = 'none';
+  gamePlaying=true;
+  //gameContainer.style.display = 'block';
+});
+
 
 function loadQuiz(quizIndex) {
 
@@ -292,7 +319,7 @@ function checkDistanceAndShowUI(targetLat,targetLng) {
 }
 
 function applyMovement() {
-  if (!uiVisible) {
+  if (gamePlaying&&!uiVisible) {
   const heading = parseFloat(map.getAttribute("heading")) || 0; // Map's heading in degrees
 
   // Convert heading to radians for calculations

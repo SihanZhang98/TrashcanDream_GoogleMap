@@ -10,6 +10,44 @@ gmp-map-3d {
   height: 100%;
 }
 
+.intro-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  /* z-index: 999; */
+}
+
+.intro-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.unmute-button, .skip-button {
+  position: absolute;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+.unmute-button {
+  bottom: 20px;
+  left: 20px;
+}
+
+.skip-button {
+  bottom: 20px;
+  right: 20px;
+}
+
+
 .dialogue-container {
   display: none;
   position: relative;
