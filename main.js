@@ -58,7 +58,7 @@ let uiVisible = false;
 
 const locations =[//40.64244816956603, -73.99461955863221
   { id:"station" , lat: 40.67176559632283, lng:-73.99715614721433},
-  {id:"park", lat:40.64244816956603, lng:-73.99461955863221},
+  {id:"compost-site", lat:40.6222508393462,  lng:-73.97681710500046},
   {id:"coneyisland",lat:40.57475983566617, lng:-73.98593802882345}
 ]
 
@@ -72,8 +72,9 @@ const dialogues=[
 
   ["Ah what a disaster! ",
     "The rat is messing with the compost bin！",
-    "I can't just pass by and let this happen.",
-    "Composting reduces waste, improves the soil, and helps the environment",
+    "All kinds of trash are mixed up now...",
+    "I can't just stand by and let this happen.",
+    "Composting reduces waste, improves the soil, and helps the environment.",
     "I need to fix this mess."],
 
   ["It's Coney Island! I made it!",
@@ -120,26 +121,34 @@ const quizzes = [
      //location2 quizzes
   [
     {
-      question: "Which one?",
+      question: "Which one should go into the compost bin?",
       options: [
-        { image: "assets/veggie", isCorrect: true },
-        { image: "assets/chicken-bone", isCorrect: false },
+        { image: "assets/veggie.png", isCorrect: true },
+        { image: "assets/chicken-bone.png", isCorrect: false },
       ],
     },
     {
-      question: "Which material ?",
+      question: "Which one cannot go into the compost bin?",
       options: [
-        { image: "https://placehold.co/600x400", isCorrect: true },
-        { image: "https://placehold.co/600x400", isCorrect: false },
+        { image: "assets/leaf.png", isCorrect: false },
+        { image: "assets/meat.png", isCorrect: true },
       ],
     },
     {
-      question: "Which item?",
+      question: "What helps the composting process go more smoothly?",
       options: [
-        { image: "https://placehold.co/600x400", isCorrect: false },
-        { image: "https://placehold.co/600x400", isCorrect: true },
+        { image: "assets/cheese.png", isCorrect: false },
+        { image: "assets/coffee.png", isCorrect: true },
       ],
     },
+    {
+      question: "Which is the 'enermy' that dirty the compost?",
+      options: [
+        { image: "assets/apple.png", isCorrect: false },
+        { image: "assets/plastic.png", isCorrect: true },
+      ],
+
+    }
   ],
 
   [
