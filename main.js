@@ -54,8 +54,11 @@ const wrongImg="assets/wrong.png";
 //intro video UI
 const introContainer=document.querySelector(".intro-container");
 const introVideo=document.querySelector(".intro-video");
+const endingContainer=document.querySelector(".ending-container");
+const endingVideo=document.querySelector(".ending-video");
 const unmuteButton=document.querySelector(".unmute-button");
 const skipButton=document.querySelector(".skip-button");
+const againButton=document.querySelector(".play-again-button");
 let gamePlaying =false;
 
 let currentLineIndex = 0;
@@ -162,8 +165,8 @@ const quizzes = [
     {
       question: "Should I stay here or go back?",
       options: [
-        { image: "https://placehold.co/600x400", isCorrect: true },
-        { image: "https://placehold.co/600x400", isCorrect: false },
+        { image: "assets/stay.png", video:"assets/google_ending_stay.mp4"},
+        { image: "assets/return.png",video:"assets/google_ending_stay.mp4"},
       ],
     }
   ],
@@ -187,9 +190,18 @@ skipButton.addEventListener('click', () => {
 introVideo.addEventListener('ended', () => {
   introContainer.style.display = 'none';
   gamePlaying=true;
-  //gameContainer.style.display = 'block';
 });
 
+endingVideo.addEventListener('ended', () => {
+  againButton.style.display = 'block';
+
+})
+
+againButton.addEventListener('ended', () => {
+  endingContainer.style.display="none";
+  introContainer.style.display="block";
+
+});
 
 function loadQuiz(quizIndex) {
 
@@ -207,12 +219,41 @@ function loadQuiz(quizIndex) {
   //uodate option images
   const option1 = document.querySelector(".option-1");
   const option2 = document.querySelector(".option-2");
-  
   option1.src = quiz.options[0].image;
-  option1.onclick = () => checkAnswer(0,quiz.options[0].isCorrect);
-
   option2.src = quiz.options[1].image;
-  option2.onclick = () => checkAnswer(1, quiz.options[1].isCorrect);
+
+  if(currentLocationIndex==locations.length-1){
+  //if final location
+  option1.onclick = () => loadEnding(quiz.options[0].video);
+  option2.onclick = () => loadEnding(quiz.options[1].video);
+  }else{
+      //if not final location
+    option1.onclick = () => checkAnswer(0,quiz.options[0].isCorrect);
+    option2.onclick = () => checkAnswer(1, quiz.options[1].isCorrect);
+  }
+
+}
+
+function loadEnding(videoSrc){
+  gamePlaying=false;
+  endingContainer.style.display="block";
+  endingVideo.src=videoSrc;
+
+  //reset 
+  currentLineIndex = 0;
+  currentQuizIndex = 0;
+  currentLocationIndex=0;
+  trashcanLat = 40.69091634261124;
+  trashcanLng = -73.99167008808041;
+  trashcanAlt = 18; 
+  quizContainer.style.display = "none";
+  ui.style.display = "none";
+  uiVisible =false; 
+
+  dirline.coordinates = [
+    {lat:  trashcanLat, lng:  trashcanLng, altitude:  maxAltitude-5},
+    {lat:  locations[currentLocationIndex].lat, lng:locations[currentLocationIndex].lng, altitude:  maxAltitude-5},
+        ];
 }
 
 function checkAnswer(selectedOption, isCorrect) {
@@ -304,6 +345,11 @@ function checkDistanceAndShowUI(targetLat,targetLng) {
   let latDiff = Math.abs(trashcanLat - targetLat);
   let lngDiff = Math.abs(trashcanLng - targetLng);
   if (latDiff <= distThreshold || lngDiff <= distThreshold) {
+    //hide dirline
+    dirline.coordinates = [
+      {lat:  trashcanLat, lng:  trashcanLng, altitude:  -5},
+      {lat:  locations[currentLocationIndex].lat, lng:locations[currentLocationIndex].lng, altitude:  -5},
+          ];
     //stop trashcan
     velocityLat = 0;
     velocityLng = 0;
