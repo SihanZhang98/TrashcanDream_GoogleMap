@@ -105,6 +105,7 @@ gmp-map-3d {
   border-radius: 20px;
 }
 
+
 .dialogue-container {
   display: none;
   position: relative;
@@ -163,6 +164,26 @@ gmp-map-3d {
     filter: brightness(1.15);
   }
 
+.info-container{
+  display:none;
+  position:fixed;
+  top:40%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+}
+
+.info-1{
+  width: 35%;
+  max-width: 900px;
+} 
+
+ .info-2{
+    width: 25%;
+    max-width: 750px;
+} 
+
 .quiz-container {
   display:none;
   position:fixed;
@@ -182,7 +203,7 @@ gmp-map-3d {
 
 .quiz-options img {
   width: 45%;
-  max-width: 400px;
+  max-width: 700px;
   transition: transform 0.3s ease;
   cursor: pointer;
 }
@@ -197,7 +218,7 @@ gmp-map-3d {
 }
 
 .answer-container img{
-  width: 8%;
+  width: 7%;
 }
 .answer-1,.answer-2{
   visibility: hidden;

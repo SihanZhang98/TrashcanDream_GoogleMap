@@ -54,6 +54,9 @@ const continueText = document.querySelector(".continue");
 const quizContainer = document.querySelector(".quiz-container");
 const rightImg="assets/right.png";
 const wrongImg="assets/wrong.png";
+const infoContainer = document.querySelector(".info-container");
+const info1 = document.querySelector(".info-1");
+const info2 = document.querySelector(".info-2");
 
 const introContainer=document.querySelector(".intro-container");
 const introVideo=document.querySelector(".intro-video");
@@ -72,8 +75,11 @@ let atMaxHeight=false;
 
 
 const locations =[//40.64244816956603, -73.99461955863221
-  { id:"station" , lat: 40.67176559632283, lng:-73.99715614721433},
-  {id:"compost-site", lat:40.6222508393462,  lng:-73.97681710500046},
+  { id:"station" , lat: 40.67176559632283, lng:-73.99715614721433, 
+    info1:"assets/station-info1.png",info2:"assets/station-info2.png"},
+  {id:"compost-site", lat:40.6222508393462,  lng:-73.97681710500046,
+    info1:"assets/compost-info1.png",info2:"assets/compost-info2.png"
+  },
   {id:"coneyisland",lat:40.573784824080875, lng:-73.98508247587344}
 ]
 
@@ -353,6 +359,16 @@ function showNextLine() {
   currentLineIndex++;
   if (currentLineIndex < dialogue.length) {
     uiText.textContent = dialogue[currentLineIndex];
+
+    //show information page 
+    if(currentLocationIndex==0 && currentLineIndex==1){
+      showInfo();
+    }else if(currentLocationIndex==1 && currentLineIndex==4){
+      showInfo();
+    }else{
+      infoContainer.style.display="none";
+    }
+
   } else {
     currentLineIndex = 0; 
     continueText.style.visibility="hidden";
@@ -361,7 +377,11 @@ function showNextLine() {
   }
 }
 
-
+function showInfo(){
+  info1.src=locations[currentLocationIndex].info1;
+  info2.src=locations[currentLocationIndex].info2;
+  infoContainer.style.display = "block";
+}
 
 function updateTrashcanPosition() {
   trashcanLat += velocityLat;

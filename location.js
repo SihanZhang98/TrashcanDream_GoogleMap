@@ -22,13 +22,13 @@ customElements.whenDefined(station.localName).then(() => {
 });
 
 //park polygon
-customElements.whenDefined(garden.localName).then(() => {
-  garden.outerCoordinates = [
-    {lat: 40.649678604978405, lng: -73.96337377353251,altitude: height},
-    {lat: 40.649942134291585, lng: -73.96328468286639,altitude: height},
-    {lat: 40.64965208086651, lng: -73.96323393501861,altitude: height},
-  ];
-});
+// customElements.whenDefined(garden.localName).then(() => {
+//   garden.outerCoordinates = [
+//     {lat: 40.649678604978405, lng: -73.96337377353251,altitude: height},
+//     {lat: 40.649942134291585, lng: -73.96328468286639,altitude: height},
+//     {lat: 40.64965208086651, lng: -73.96323393501861,altitude: height},
+//   ];
+// });
 
 
 
