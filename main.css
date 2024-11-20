@@ -10,6 +10,11 @@ gmp-map-3d {
   height: 100%;
 }
 
+@font-face {
+  font-family: 'Harmony';
+  src: url('assets/harmonyos_bold.TTF'); 
+
+}
 .intro-container,.ending-container {
   position: fixed;
   top: 0;
@@ -30,6 +35,7 @@ gmp-map-3d {
 }
 
 .unmute-button, .skip-button,.play-again-button{
+  font-family: 'Harmony', Arial, sans-serif;
   position: absolute;
   z-index: 1000;
   background: rgba(255, 255, 255);
@@ -57,7 +63,7 @@ gmp-map-3d {
   left:50%;
   bottom:30%;
   transform: translate(-50%, -50%);
-  display:block;
+  display:none;
 }
 
 
@@ -67,7 +73,7 @@ gmp-map-3d {
   bottom: 15%; 
   text-align: center;
   /* padding: 20px; */
-  font-family: Arial, sans-serif;
+  font-family: 'Harmony', Arial, sans-serif;
   }
   
   .dialogue-bg{

@@ -69,7 +69,7 @@ let uiVisible = false;
 const locations =[//40.64244816956603, -73.99461955863221
   { id:"station" , lat: 40.67176559632283, lng:-73.99715614721433},
   {id:"compost-site", lat:40.6222508393462,  lng:-73.97681710500046},
-  {id:"coneyisland",lat:40.57475983566617, lng:-73.98593802882345}
+  {id:"coneyisland",lat:40.573784824080875, lng:-73.98508247587344}
 ]
 
 const dialogues=[
