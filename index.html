@@ -35,12 +35,26 @@
          scale="0.3" 
          src="assets/bin.glb"></gmp-model-3d>
 
+         <gmp-marker-3d class ="compost-bin-marker"
+         altitude-mode="absolute"
+          position ="40.62077190601765, -73.97689422849221,42"
+          label="Compost Bin"
+          drawsWhenOccluded
+        ></gmp-marker-3d>
+
          <gmp-model-3d class ="coney-island-trash" 
          orientation="0,270,0"
          position="40.57191879635695, -73.98544442186954,8"
           altitude-mode="absolute"
           scale="100" 
           src="assets/coney-island-trash.glb"></gmp-model-3d>
+
+          <gmp-marker-3d class ="coney-island-marker"
+          altitude-mode="absolute"
+           position ="40.57191879635695, -73.98544442186954,42"
+           label="Coney Island"
+           drawsWhenOccluded
+         ></gmp-marker-3d>
 
       <gmp-polyline-3d class="direction-line" altitude-mode="absolute" 
         stroke-color="rgba(250, 230, 117, 0.75)" 
@@ -60,12 +74,12 @@
         stroke-width="5" 
         extruded></gmp-polygon-3d>
 
-      <gmp-polygon-3d class ="q-garden"
+      <!-- <gmp-polygon-3d class ="q-garden"
           altitude-mode="relative-to-ground" 
           fill-color="rgba(66, 255, 123, 0.4)"  
           stroke-color="rgba(255,255,255, 0.6)" 
           stroke-width="3" 
-          extruded></gmp-polygon-3d>
+          extruded></gmp-polygon-3d> -->
 
   </gmp-map-3d>
 
