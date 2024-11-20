@@ -51,8 +51,9 @@ gmp-map-3d {
 }
 
 .unmute-button {
-  bottom: 20px;
-  left: 20px;
+  bottom: 80px;
+  right: 20px;
+  /* transform: translate(-50%); */
 }
 
 .skip-button {

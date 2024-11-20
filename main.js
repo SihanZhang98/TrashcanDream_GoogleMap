@@ -180,8 +180,15 @@ const quizzes = [
 
 //button events
 unmuteButton.addEventListener('click', () => {
-  introVideo.muted = false;
-  unmuteButton.style.display = 'none';
+  if(introVideo.muted){
+    introVideo.muted = false;
+    unmuteButton.textContent="Mute";
+  }else{
+    introVideo.muted = true;
+    unmuteButton.textContent="Unmute";
+  }
+
+
 });
 
 skipButton.addEventListener('click', () => {
