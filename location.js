@@ -6,8 +6,8 @@ const height = 40;
 //polyline showing direction 
 customElements.whenDefined(dirline.localName).then(() => {
   dirline.coordinates = [
-    {lat:  trashcanLat, lng:  trashcanLng, altitude:  maxAltitude-5},
-    {lat:  stationLat, lng:stationLng, altitude:  maxAltitude-5},
+    {lat:  trashcanLat, lng:  trashcanLng, altitude:  maxAltitude-40},
+    {lat:  stationLat, lng:stationLng, altitude:  maxAltitude-40},
         ];
 });
 

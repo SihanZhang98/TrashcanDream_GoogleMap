@@ -20,11 +20,11 @@ const coneyIslandLng = -73.97870758505385;
 let currentLocationIndex =0;
 
 // Movement settings
-const acceleration = 0.0000003;
-const maxSpeed = 0.001;     
-const verticalAcceleration = 0.1; 
-const maxVerticalSpeed = 0.14;      
-const maxAltitude = 150;              
+const acceleration = 0.0000004;
+const maxSpeed = 0.0014;     
+const verticalAcceleration = 0.2; 
+const maxVerticalSpeed = 0.18;      
+const maxAltitude = 100;              
 const friction = 0.98;  
 const distThreshold = 0.00005;
 const heading = parseFloat(map.getAttribute("heading")) || 0; // Map's heading in degrees
@@ -287,8 +287,8 @@ function loadEnding(videoSrc){
   uiVisible =false; 
 
   dirline.coordinates = [
-    {lat:  trashcanLat, lng:  trashcanLng, altitude:  maxAltitude-5},
-    {lat:  locations[currentLocationIndex].lat, lng:locations[currentLocationIndex].lng, altitude:  maxAltitude-5},
+    {lat:  trashcanLat, lng:  trashcanLng, altitude:  maxAltitude-40},
+    {lat:  locations[currentLocationIndex].lat, lng:locations[currentLocationIndex].lng, altitude:  maxAltitude-40},
         ];
 }
 
@@ -330,8 +330,8 @@ function checkAnswer(selectedOption, isCorrect) {
         uiVisible =false; 
 
         dirline.coordinates = [
-          {lat:  trashcanLat, lng:  trashcanLng, altitude:  maxAltitude-5},
-          {lat:  locations[currentLocationIndex].lat, lng:locations[currentLocationIndex].lng, altitude:  maxAltitude-5},
+          {lat:  trashcanLat, lng:  trashcanLng, altitude:  maxAltitude-40},
+          {lat:  locations[currentLocationIndex].lat, lng:locations[currentLocationIndex].lng, altitude:  maxAltitude-40},
               ];
 
       }
