@@ -72,7 +72,6 @@ const locations =[//40.64244816956603, -73.99461955863221
   {id:"coneyisland",lat:40.57475983566617, lng:-73.98593802882345}
 ]
 
-
 const dialogues=[
   ["Ugh, what’s that smell？",
   "Oh that's the Hamilton Avenue Marine Transfer Station!",

@@ -32,12 +32,15 @@ gmp-map-3d {
 .unmute-button, .skip-button,.play-again-button{
   position: absolute;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255);
   border: none;
   padding: 10px 15px;
   cursor: pointer;
   font-size: 16px;
-  border-radius: 4px;
+  /* border-radius: 4px; */
+  border: 2px solid #422800;
+  border-radius: 30px;
+  box-shadow: #422800 4px 4px 0 0;
 }
 
 .unmute-button {
@@ -52,8 +55,9 @@ gmp-map-3d {
 
 .play-again-button{
   left:50%;
-  top:60%;
-  display:none;
+  bottom:30%;
+  transform: translate(-50%, -50%);
+  display:block;
 }
 
 
