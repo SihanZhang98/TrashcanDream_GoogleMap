@@ -20,8 +20,8 @@ const coneyIslandLng = -73.97870758505385;
 let currentLocationIndex =0;
 
 // Movement settings
-const acceleration = 0.0000002; 
-const maxSpeed = 0.0008;     
+const acceleration = 0.00000025;
+const maxSpeed = 0.001;     
 const verticalAcceleration = 0.09; 
 const maxVerticalSpeed = 0.12;      
 const maxAltitude = 150;              
@@ -47,6 +47,7 @@ const keys = {
 const upUI = document.querySelector(".ui-up");
 const wasdUI = document.querySelector(".ui-wasd");
 const followUI= document.querySelector(".ui-follow");
+const ui = document.querySelector(".dialogue-container");
 const uiText = document.querySelector(".dialogue-text");
 const nextButton = document.querySelector(".next-button");
 const continueText = document.querySelector(".continue");
@@ -169,7 +170,7 @@ const quizzes = [
       question: "Should I stay here or go back?",
       options: [
         { image: "assets/stay.png", video:"assets/google_ending_stay.mp4"},
-        { image: "assets/return.png",video:"assets/google_ending_stay.mp4"},
+        { image: "assets/return.png",video:"assets/google_ending_return.mp4"},
       ],
     }
   ],
