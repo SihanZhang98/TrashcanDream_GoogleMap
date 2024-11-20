@@ -4,6 +4,7 @@ body {
   margin: 0;
   padding: 0;
   overflow:hidden;
+  font-family:'Harmony';
 }
 
 gmp-map-3d {
@@ -66,6 +67,42 @@ gmp-map-3d {
   display:none;
 }
 
+.instruction{
+  position:fixed;
+  top:40%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+
+}
+.ui-up,.ui-wasd{
+  display:none;
+  position:relative;
+  width: 35%;
+  max-width: 300px;
+  background-color: rgb(235, 235, 235);
+  border: 3px solid #426f44;
+  /* box-shadow: #422800 4px 4px 0 0; */
+  border-radius: 20px;
+}
+/* .ui-wasd{
+  width: 35%;
+  max-width: 300px;
+  display:none;
+  
+} */
+
+.ui-follow{
+  display:none;
+  padding:20px;
+  position: absolute;
+  top:50%;
+  right:5%;
+  background-color: rgb(235, 235, 235);
+  border: 2px solid #0f4e08;
+  /* box-shadow: #422800 4px 4px 0 0; */
+  border-radius: 20px;
+}
 
 .dialogue-container {
   display: none;

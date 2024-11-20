@@ -26,9 +26,10 @@ const verticalAcceleration = 0.09;
 const maxVerticalSpeed = 0.12;      
 const maxAltitude = 150;              
 const friction = 0.98;  
-const distThreshold = 0.00005;            
+const distThreshold = 0.00005;
+const heading = parseFloat(map.getAttribute("heading")) || 0; // Map's heading in degrees
+const headingRad = (heading * Math.PI) / 180;            
 
-// Velocity for each direction
 let velocityLat = 0;
 let velocityLng = 0;
 let velocityAlt = 0; 
@@ -43,7 +44,9 @@ const keys = {
 };
 
 //ui
-const ui = document.querySelector(".dialogue-container");
+const upUI = document.querySelector(".ui-up");
+const wasdUI = document.querySelector(".ui-wasd");
+const followUI= document.querySelector(".ui-follow");
 const uiText = document.querySelector(".dialogue-text");
 const nextButton = document.querySelector(".next-button");
 const continueText = document.querySelector(".continue");
@@ -51,7 +54,6 @@ const quizContainer = document.querySelector(".quiz-container");
 const rightImg="assets/right.png";
 const wrongImg="assets/wrong.png";
 
-//intro video UI
 const introContainer=document.querySelector(".intro-container");
 const introVideo=document.querySelector(".intro-video");
 const endingContainer=document.querySelector(".ending-container");
@@ -59,11 +61,13 @@ const endingVideo=document.querySelector(".ending-video");
 const unmuteButton=document.querySelector(".unmute-button");
 const skipButton=document.querySelector(".skip-button");
 const againButton=document.querySelector(".play-again-button");
-let gamePlaying =false;
 
+//game state variables
+let gamePlaying =false;
 let currentLineIndex = 0;
 let currentQuizIndex = 0;
 let uiVisible = false;
+let atMaxHeight=false;
 
 
 const locations =[//40.64244816956603, -73.99461955863221
@@ -173,7 +177,7 @@ const quizzes = [
 
 ];
 
-//intro video
+//button events
 unmuteButton.addEventListener('click', () => {
   introVideo.muted = false;
   unmuteButton.style.display = 'none';
@@ -181,14 +185,27 @@ unmuteButton.addEventListener('click', () => {
 
 skipButton.addEventListener('click', () => {
   introContainer.style.display = 'none';
-  //gameContainer.style.display = 'block';
   introVideo.pause();
-  gamePlaying=true;
+
+ //wait for model load then display ui
+  setTimeout(() => {
+    gamePlaying=true;
+    upUI.style.display="block";
+
+  },2500);
+
 });
 
 introVideo.addEventListener('ended', () => {
   introContainer.style.display = 'none';
   gamePlaying=true;
+
+ //wait for model load then display ui
+ setTimeout(() => {
+  gamePlaying=true;
+  upUI.style.display="block";
+
+},2500);
 });
 
 endingVideo.addEventListener('ended', () => {
@@ -201,7 +218,28 @@ againButton.addEventListener('ended', () => {
   introContainer.style.display="block";
 
 });
+nextButton.addEventListener("click", showNextLine);
 
+// Listen for keydown and keyup events to track which keys are pressed
+document.addEventListener("keydown", (event) => {
+  if (event.key === " ") {
+    event.preventDefault(); // Prevent page scrolling with spacebar
+    keys.space = true;
+  }
+  if (event.key in keys) keys[event.key] = true;
+}
+);
+
+document.addEventListener("keyup", (event) => {
+  if (event.key === " ") keys.space = false;
+  if (event.key in keys) keys[event.key] = false;
+});
+
+
+
+
+
+//functions
 function loadQuiz(quizIndex) {
 
   quizContainer.style.display = "block";
@@ -316,11 +354,9 @@ function showNextLine() {
     loadQuiz(currentQuizIndex);
   }
 }
-nextButton.addEventListener("click", showNextLine);
 
 
 
-//update the trashcan position
 function updateTrashcanPosition() {
   trashcanLat += velocityLat;
   trashcanLng += velocityLng;
@@ -332,13 +368,26 @@ function updateTrashcanPosition() {
     `${trashcanLat},${trashcanLng},${trashcanAlt}`
   );
 
+  //if trashcan reaches max height, show next ui
+  if(trashcanAlt==maxAltitude&&atMaxHeight==false){
+    atMaxHeight=true;
+    upUI.style.display="none";
+    wasdUI.style.display="block";
+    followUI.style.display="block";
+
+    setTimeout(() => {
+      wasdUI.style.display="none";
+      followUI.style.display="none";
+
+    },5000);
+  }
+
   // Update the map's center to follow the trashcan
  map.setAttribute("center", `${trashcanLat},${trashcanLng},${trashcanAlt}`);
 
 }
 
 
-// check proximity and show UI
 function checkDistanceAndShowUI(targetLat,targetLng) {
 
   let latDiff = Math.abs(trashcanLat - targetLat);
@@ -365,10 +414,6 @@ function checkDistanceAndShowUI(targetLat,targetLng) {
 
 function applyMovement() {
   if (gamePlaying&&!uiVisible) {
-  const heading = parseFloat(map.getAttribute("heading")) || 0; // Map's heading in degrees
-
-  // Convert heading to radians for calculations
-  const headingRad = (heading * Math.PI) / 180;
 
   // Movement vector based on keys and map's heading
   let moveForwardLat = Math.cos(headingRad) * acceleration;
@@ -377,7 +422,8 @@ function applyMovement() {
   let moveSidewaysLat = Math.sin(headingRad) * acceleration;
   let moveSidewaysLng = -Math.cos(headingRad) * acceleration;
 
-  // Apply acceleration for movement
+  if(atMaxHeight){
+      // apply acceleration to horizontal movement
   if (keys.w) {
     velocityLat = Math.min(velocityLat + moveForwardLat, maxSpeed);
     velocityLng = Math.min(velocityLng + moveForwardLng, maxSpeed);
@@ -394,6 +440,9 @@ function applyMovement() {
     velocityLat = Math.max(velocityLat - moveSidewaysLat, -maxSpeed);
     velocityLng = Math.max(velocityLng - moveSidewaysLng, -maxSpeed);
   }
+  }
+
+  //apply acceleration vertical movement
   if (keys.space) {
     velocityAlt = Math.min(velocityAlt + verticalAcceleration, maxVerticalSpeed);
   }
@@ -417,19 +466,5 @@ requestAnimationFrame(applyMovement);
 // Start the animation loop
 applyMovement();
 
-// Listen for keydown and keyup events to track which keys are pressed
-document.addEventListener("keydown", (event) => {
-    if (event.key === " ") {
-      event.preventDefault(); // Prevent page scrolling with spacebar
-      keys.space = true;
-    }
-    if (event.key in keys) keys[event.key] = true;
-  }
-);
-
-document.addEventListener("keyup", (event) => {
-    if (event.key === " ") keys.space = false;
-    if (event.key in keys) keys[event.key] = false;
-});
 
 
