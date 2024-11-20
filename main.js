@@ -20,10 +20,10 @@ const coneyIslandLng = -73.97870758505385;
 let currentLocationIndex =0;
 
 // Movement settings
-const acceleration = 0.00000025;
+const acceleration = 0.0000003;
 const maxSpeed = 0.001;     
-const verticalAcceleration = 0.09; 
-const maxVerticalSpeed = 0.12;      
+const verticalAcceleration = 0.1; 
+const maxVerticalSpeed = 0.14;      
 const maxAltitude = 150;              
 const friction = 0.98;  
 const distThreshold = 0.00005;
@@ -214,10 +214,8 @@ endingVideo.addEventListener('ended', () => {
 
 })
 
-againButton.addEventListener('ended', () => {
-  endingContainer.style.display="none";
-  introContainer.style.display="block";
-
+againButton.addEventListener('click', () => {
+  location.reload();
 });
 nextButton.addEventListener("click", showNextLine);
 
